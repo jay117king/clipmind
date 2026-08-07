@@ -9,6 +9,17 @@ ClipMind is a personal "second brain" for screenshots and links on Android. Capt
 **Android-first.**  
 We are building a native Android app using Kotlin + Jetpack Compose.
 
+## Get the app on your phone (no computer needed)
+
+Every time we push code, GitHub automatically builds a debug APK.
+
+1. Open **https://github.com/jay117king/clipmind/actions** on your phone
+2. Wait for the latest **“Build Debug APK”** run to finish (green check)
+3. Download the **clipmind-debug-apk** artifact
+4. Install the APK on your phone
+
+Full instructions: [docs/how-to-get-the-app-on-your-phone.md](docs/how-to-get-the-app-on-your-phone.md)
+
 ## The Core Loop
 
 1. **Screenshot** anything on your phone → auto-saved, OCR'd, and semantically indexed  
@@ -60,18 +71,9 @@ Unlike Google Photos or Pocket, clips aren't siloed. A screenshot of a flight co
 clipmind/
 ├── mobile/                 # Android app (Kotlin + Compose)
 ├── docs/                   # Architecture & decisions
-├── scripts/                # Helper scripts
+├── .github/workflows/      # Automatic APK builds
 └── README.md
 ```
-
-## Getting Started
-
-```bash
-git clone https://github.com/jay117king/clipmind.git
-cd clipmind
-```
-
-Open the `mobile/` folder in Android Studio to start developing.
 
 ---
 
