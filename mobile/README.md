@@ -4,58 +4,81 @@ Native Android implementation of ClipMind using **Kotlin + Jetpack Compose**.
 
 ## Requirements
 
-- Android Studio Ladybug or newer (or latest stable)
+- Android Studio Ladybug (2024.2+) or newer
 - JDK 17+
 - Android SDK with API 26+
 
 ## Getting Started
 
-1. Open Android Studio
-2. Select **Open** and choose this `mobile/` folder
-3. Let Gradle sync
-4. Run on an emulator or physical device (API 26+)
+1. Clone the repo and open the **`mobile/`** folder in Android Studio  
+   (`File → Open → select the mobile directory`)
+2. Let Gradle sync (it will download dependencies via the version catalog)
+3. Create a virtual device (API 26+) or connect a physical phone
+4. Click **Run**
 
-> **Note**: This folder currently contains the planned structure and starter files.  
-> Full Android project files (build.gradle.kts, AndroidManifest, etc.) will be added next.
+> **Note**: You will still need to generate the default launcher icons (`mipmap`) if Android Studio complains.  
+> You can do this via `File → New → Image Asset` or temporarily comment out the icon lines in the Manifest.
 
-## Planned Package Structure
+## Current Project Structure
 
 ```
-com.clipmind.app
-├── data/
-│   ├── local/          # Room database, DAOs
-│   ├── repository/
-│   └── remote/         # Optional API clients
-├── domain/
-│   ├── model/
-│   └── usecase/
-├── ui/
-│   ├── chat/
-│   ├── clips/
-│   ├── settings/
-│   └── theme/
-├── service/
-│   ├── ScreenshotObserver
-│   ├── ClipboardMonitor
-│   └── ClipMindAccessibilityService
-└── util/
+mobile/
+├── app/
+│   ├── build.gradle.kts
+│   ├── proguard-rules.pro
+│   └── src/main/
+│       ├── AndroidManifest.xml
+│       ├── java/com/clipmind/app/
+│       │   ├── ClipMindApp.kt
+│       │   ├── MainActivity.kt
+│       │   ├── data/local/
+│       │   │   ├── ClipEntity.kt
+│       │   │   ├── ClipDao.kt
+│       │   │   └── ClipMindDatabase.kt
+│       │   ├── domain/model/Clip.kt
+│       │   ├── service/
+│       │   │   ├── ScreenshotObserver.kt
+│       │   │   └── ClipMindAccessibilityService.kt
+│       │   └── ui/
+│       │       ├── chat/ChatScreen.kt
+│       │       ├── clips/ClipsScreen.kt
+│       │       └── theme/
+│       │           ├── Theme.kt
+│       │           └── Type.kt
+│       └── res/
+│           ├── values/
+│           └── xml/accessibility_service_config.xml
+├── build.gradle.kts
+├── settings.gradle.kts
+├── gradle.properties
+└── gradle/libs.versions.toml
 ```
 
-## Key Dependencies (planned)
+## What’s Already Scaffolded
 
-- Jetpack Compose BOM
-- Room
-- ML Kit Text Recognition
-- WorkManager
-- Lifecycle / ViewModel
+- Full Gradle setup with Version Catalog
+- AndroidManifest with permissions + Share Intent + Accessibility Service
+- Room database + Entity + DAO
+- Domain model (`Clip`)
+- ScreenshotObserver + AccessibilityService skeletons
+- Compose Theme
+- Basic **Chat** screen (with message list + input)
+- Basic **Clips** list screen (with sample data)
+- Navigation between Chat ↔ Clips
+
+## Next Development Steps
+
+1. Wire Room database in `ClipMindApp`
+2. Implement real screenshot detection + ML Kit OCR
+3. Implement clipboard + share-intent link ingestion
+4. Connect ChatScreen to a ViewModel + simple RAG / search
+5. Add Settings screen and permission request flows
+
+## Key Dependencies
+
+- Jetpack Compose + Material 3
 - Navigation Compose
-- Coil (image loading)
-- OkHttp / Retrofit (for link fetching & LLM)
-
-## Development Order
-
-1. Project scaffold + Room + basic screens
-2. Screenshot detection + OCR pipeline
-3. Link capture (clipboard + share)
-4. Local search
-5. Chat + RAG
+- Room + KSP
+- WorkManager
+- ML Kit Text Recognition
+- Coil, OkHttp, Coroutines
